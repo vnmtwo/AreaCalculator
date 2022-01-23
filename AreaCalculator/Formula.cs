@@ -81,6 +81,11 @@ namespace AreaCalculator
         }
         internal double[] Calculate(double[] args)
         {
+            if (args == null)
+                throw new ArgumentNullException("args is null");
+            if (VariablesNames.Count != args.Length)
+                throw new ArgumentException(
+                    "Input arguments count does not match the number of variables in the formula");
             return Calculator.CalculateArea(args); 
         }
         private List<string> GetVariables(string formula)
@@ -98,8 +103,7 @@ namespace AreaCalculator
             variables.Sort();
             return variables;
         }
-
-        public List<string> GetVariables()
+        internal List<string> GetVariables()
         {
             return VariablesNames;
         }
