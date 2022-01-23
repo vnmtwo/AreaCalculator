@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AreaCalculator</name>
+    </assembly>
+    <members>
+        <member name="T:AreaCalculator.AreaCalculator">
+            <summary>
+            Represents area calculator class.
+            </summary>
+        </member>
+        <member name="P:AreaCalculator.AreaCalculator.Constants">
+            <summary>
+            All constant names, available for use.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:AreaCalculator.AreaCalculator.MathFuncs" -->
+        <member name="P:AreaCalculator.AreaCalculator.FormulaNames">
+            <summary>
+            All formulas names, available for execution.
+            </summary>
+        </member>
+        <member name="M:AreaCalculator.AreaCalculator.#ctor">
+            <summary>
+            Initializes new instance of AreaCalculator class.
+            </summary>
+        </member>
+        <member name="M:AreaCalculator.AreaCalculator.AddFormula(System.String,System.String)">
+            <summary>
+            Add and compile new formula. formulaName must be unique.
+            </summary>
+            <param name="formulaName">
+            Unique value to store formula.
+            </param>
+            <param name="formula">
+            Formula for calculation.
+            May use:
+            1) Math functions, can be obtained by <c>MathFuncs</c> property. f.e.: SQRT()
+            2) Constants, in curly brackets, can be obtained by <c>Constants</c> property. f.e.: {PI}
+            3) Variables - one letter, in square brackets. f.e.: [x]
+            Also, you can combine several formulas into one by separating them with a comma.
+            The results of the calculation will be returned in the corresponding elements of the output array.
+            </param>
+            <exception cref="T:System.ArgumentNullException">If formulaName is null or formula is null</exception>
+            <exception cref="T:System.ArgumentException">If formulaName is already used.</exception>
+            <exception cref="T:AreaCalculator.FormulaCompilationException">If formula is incorrect.</exception>
+            <exception cref="T:AreaCalculator.FormulaWithoutVariablesException">If variables not found in formula.</exception>
+        </member>
+        <member name="M:AreaCalculator.AreaCalculator.GetFormulaVariables(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="formulaName">
+            Formula name from Formulas list. 
+            The list can be obtained by <c>FormulaNames</c> property.
+            </param>
+            <returns>
+            List of variables, used in formula.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">If formulaName is null</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">If formulaName is not exists in formulas list</exception>
+        </member>
+        <member name="M:AreaCalculator.AreaCalculator.Calculate(System.String,System.Double[])">
+            <summary>
+            Calculates the given formula.
+            </summary>
+            <param name="formulaName">
+            Formula name from Formulas list. 
+            The list can be obtained by <c>FormulaNames</c> property.
+            </param>
+            <param name="args">
+            Variables values, placed alphabetically in array.
+            For example: formula is <c>[b]+[c]+[a]</c>
+            values is b=2 a=1 c=3
+            args array must be formed: <c>[1,2,3]</c>
+            </param>
+            <returns>
+            Array of results corresponding to the formula.
+            </returns>
+            <exception cref="T:System.ArgumentException">If args length doesn't match variables count in formula</exception>
+            <exception cref="T:System.ArgumentNullException">If formulaName is null or arg is null</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">If formulaName is not exists in formulas list</exception>
+        </member>
+    </members>
+</doc>
