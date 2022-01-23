@@ -4,7 +4,7 @@
     <TargetFramework>net45</TargetFramework>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>..\doc.xml</DocumentationFile>
+    <DocumentationFile>..\AreaCalculatorDoc.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
