@@ -2,7 +2,7 @@
 
 1. Create **AreaCalculator** class instance
 2. Add custom formula by `AddFormula(string formulaName, string formula)` if needed
-3. Run `Calculate(double[] args)` method
+3. Call `Calculate(double[] args)` method
 
 	AreaCalculator.AreaCalculator ac = new AreaCalculator.AreaCalculator();  
 	ac.AddFormula("CircleByD", "{PI}*POW([d]/2,2)");  
