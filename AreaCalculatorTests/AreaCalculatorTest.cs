@@ -26,7 +26,49 @@ namespace AreaCalculatorTests
 
             var name = GenerateUniqueString(ac.FormulaNames);
 
-            ac.AddFormula(name, "{PI}*POW([d]/2,2)");
+            ac.AddFormula(name, "[A]+[B]+1.0");
+            
+            name = GenerateUniqueString(ac.FormulaNames);
+            ac.AddFormula(name, "[A]+[B], [A]+[B]");
+
+            name = GenerateUniqueString(ac.FormulaNames);
+            ac.AddFormula(name, "[A]+[B]+{PI}, [A]+[B]+{PI}");
+
+            name = GenerateUniqueString(ac.FormulaNames);
+            ac.AddFormula(name, "[A]+[B]+{PI}, [A]+[B]");
+        }
+
+        [TestMethod]
+        public void AddFormula_ArgumentNullException()
+        {
+            var ac = new AreaCalculator.AreaCalculator();
+
+            var name = GenerateUniqueString(ac.FormulaNames);
+
+            Assert.ThrowsException<ArgumentNullException>(
+                () => ac.AddFormula(name, null));
+        }
+
+        [TestMethod]
+        public void AddFormula_FormulaCompilationException()
+        {
+            var ac = new AreaCalculator.AreaCalculator();
+
+            var name = GenerateUniqueString(ac.FormulaNames);
+
+            Assert.ThrowsException<FormulaCompilationException>(
+                () => ac.AddFormula(name, "[A]+[B])"));
+        }
+
+        [TestMethod]
+        public void AddFormula_FormulaWithoutVariablesException()
+        {
+            var ac = new AreaCalculator.AreaCalculator();
+
+            var name = GenerateUniqueString(ac.FormulaNames);
+
+            Assert.ThrowsException<FormulaWithoutVariablesException>(
+                () => ac.AddFormula(name, "3+4"));
         }
 
         [TestMethod]
@@ -65,7 +107,6 @@ namespace AreaCalculatorTests
 
             Assert.ThrowsException<ArgumentException>(
                 () => ac.Calculate(name, d));
-
         }
 
         [TestMethod]
@@ -78,22 +119,19 @@ namespace AreaCalculatorTests
             var d = GenerateArgs(vc);
 
             Assert.ThrowsException<ArgumentNullException>(
-                () => ac.Calculate(null, d));
-            Assert.ThrowsException<ArgumentNullException>(
                 () => ac.Calculate(name, null));
-            Assert.ThrowsException<ArgumentNullException>(
-                () => ac.Calculate(null, null));
         }
 
         [TestMethod]
-        public void Calculate_KeyNotFoundException()
+        public void GetFormulaVariables_Normal()
         {
             var ac = new AreaCalculator.AreaCalculator();
 
-            var formulaName = GenerateUniqueString(ac.FormulaNames);
+            var name = GenerateUniqueString(ac.FormulaNames);
+            ac.AddFormula(name, "[A]+[B]");
 
-            Assert.ThrowsException<KeyNotFoundException>(
-                () => ac.Calculate(formulaName, new double[1]));
+            CollectionAssert.AreEqual(ac.GetFormulaVariables(name),
+                new List<string>() { "[A]", "[B]" });
         }
 
         private string GenerateUniqueString(ICollection<string> collection)
