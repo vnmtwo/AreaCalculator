@@ -4,9 +4,9 @@
 2. Add custom formula by `AddFormula(string formulaName, string formula)` if needed
 3. Call `Calculate(double[] args)` method
 
-	AreaCalculator.AreaCalculator ac = new AreaCalculator.AreaCalculator();  
-	ac.AddFormula("CircleByD", "{PI}*POW([d]/2,2)");  
-	double[] r = ac.Calculate("CircleByD", new double[] { 10 });  
+		AreaCalculator.AreaCalculator ac = new AreaCalculator.AreaCalculator();  
+		ac.AddFormula("CircleByD", "{PI}*POW([d]/2,2)");  
+		double[] r = ac.Calculate("CircleByD", new double[] { 10 });  
 
 
 ## Available builtin formulas
