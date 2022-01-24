@@ -20,7 +20,7 @@
 You may add custom formula by `AddFormula(string formulaName, string formula)` method.  
 May use:  
 
-1. Math functions, can be obtained by `MathFuncs`< property. f.e.: SQRT()  
+1. Math functions, can be obtained by `MathFuncs` property. f.e.: SQRT()  
 2. Constants, in curly brackets, can be obtained by `Constants` property. f.e.: {PI}  
 3. Variables - one letter, in square brackets. f.e.: [x]  
 
