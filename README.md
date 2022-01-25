@@ -2,7 +2,7 @@
 
 1. Create **AreaCalculator** class instance
 2. Add custom formula by `AddFormula(string formulaName, string formula)` if needed
-3. Call `Calculate(double[] args)` method
+3. Call `Calculate(string formulaName, double[] args)` method
 
 		AreaCalculator.AreaCalculator ac = new AreaCalculator.AreaCalculator();  
 		ac.AddFormula("CircleByD", "{PI}*POW([d]/2,2)");  
@@ -15,7 +15,7 @@
 2. **TriangleBySides**. Calculates triangle area by sides length. Requires double[3] as input, where 0,1,2 elements is triangle sides length. Returns double[2], where 0 element is area and 1 element is check for right triangle (0 is triangle, 1 is right triangle).
 
 
-## Add custom formula
+## Add custom formula (string formula)
 
 You may add custom formula by `AddFormula(string formulaName, string formula)` method.  
 May use:  
@@ -26,6 +26,42 @@ May use:
 
 Also, you can combine several formulas into one by separating them with a comma. f.e. [A]+[B], [A]+[C] returns [A+B, A+C]  
 The results of the calculation will be returned in the corresponding elements of the output array.  
+
+## Add custom formula by implementing ICalculateArea  
+
+You may add custom calculator by class that implements the ICalculateArea interface.  
+
+1. Create class that implements ICalculateArea interface.
+2. Add variables as fields with **`FormulaFieldAttribute`**. Best pratice is use one capital letter for variable.  
+3. Assign elemens of args array to your fields in `CalculateArea` method.  
+4. Write your calculator code in `CalculateArea` method. 
+5. Return double[] with your calculation results.
+6. Use `AddFormula(string formulaName, ICalculateArea calculator)` to add instance of your class as formula.
+7. Call Calculate(string formulaName, double[] args)
+
+
+Example of ICalculateArea implementation:  
+
+        namespace AreaCalculator
+        {
+            public class QuadAreaCalculator : ICalculateArea
+            {       
+                [FormulaField]
+                public double a;
+
+                [FormulaField]
+                public double b;
+
+                public double[] CalculateArea(double[] args)
+                {
+                    a = args[0];
+                    b = args[1];
+
+                    return new[] { a * b };
+                }
+            }
+        }
+
 
 ## Available  builtin constants
 
