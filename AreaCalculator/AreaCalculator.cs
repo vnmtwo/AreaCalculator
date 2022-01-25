@@ -148,7 +148,7 @@ namespace AreaCalculator
         /// Array of results corresponding to the formula.
         /// </returns>
         /// <exception cref="ArgumentException">If args length doesn't match variables count in formula</exception>
-        /// <exception cref="ArgumentNullException">If formulaName is null or arg is null</exception>
+        /// <exception cref="ArgumentNullException">If formulaName is null or args is null</exception>
         /// <exception cref="KeyNotFoundException">If formulaName is not exists in formulas list</exception>
         public double[] Calculate(string formulaName, double[] args)
         {
