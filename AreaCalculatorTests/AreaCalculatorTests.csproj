@@ -51,6 +51,10 @@
   <ItemGroup>
     <Compile Include="AreaCalculatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCalculators\TestAreaCalculator_CheckOrder.cs" />
+    <Compile Include="TestCalculators\TestAreaCalculator_WithoutFields.cs" />
+    <Compile Include="TestCalculators\TestAreaCalculator_ForgottenAttr.cs" />
+    <Compile Include="TestCalculators\TestAreaCalculator_Normal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

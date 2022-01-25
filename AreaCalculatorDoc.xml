@@ -14,7 +14,17 @@
             All constant names, available for use.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:AreaCalculator.AreaCalculator.MathFuncs" -->
+        <member name="P:AreaCalculator.AreaCalculator.MathFuncs">
+            <summary>
+            All math functions names, available for use.
+            Also available: 
+            +, -, *, /
+            amp;amp; ||, !
+            &gt;, &amp;&amp;, &lt;, &gt;=, &lt;=
+            ==, !=
+            &lt;conditiongt;?&lt;iftrue&gt;:&lt;iffalse&gt;
+            </summary>
+        </member>
         <member name="P:AreaCalculator.AreaCalculator.FormulaNames">
             <summary>
             All formulas names, available for execution.
@@ -30,7 +40,7 @@
             Add and compile new formula. formulaName must be unique.
             </summary>
             <param name="formulaName">
-            Unique value to store formula.
+            Unique string to store formula.
             </param>
             <param name="formula">
             Formula for calculation.
@@ -45,6 +55,24 @@
             <exception cref="T:System.ArgumentException">If formulaName is already used.</exception>
             <exception cref="T:AreaCalculator.FormulaCompilationException">If formula is incorrect.</exception>
             <exception cref="T:AreaCalculator.FormulaWithoutVariablesException">If variables not found in formula.</exception>
+        </member>
+        <member name="M:AreaCalculator.AreaCalculator.AddFormula(System.String,AreaCalculator.ICalculateArea)">
+            <summary>
+            Adds new an implementing ICalculateArea class interface.
+            </summary>
+            <param name="formulaName">
+            Unique string to store formula.
+            </param>
+            <param name="calculator">
+            An implementing ICalculateArea class interface.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If formula name is null
+            If calculator is null
+            </exception>
+            <exception cref="T:AreaCalculator.ClassNoContainsFormulaFieldsException">
+            If calculator doesnt contain public fields with FormulaFieldAttribute
+            </exception>
         </member>
         <member name="M:AreaCalculator.AreaCalculator.GetFormulaVariables(System.String)">
             <summary>
@@ -77,9 +105,42 @@
             <returns>
             Array of results corresponding to the formula.
             </returns>
+            <exception cref="T:System.ArgumentNullException">If formulaName is null or args is null</exception>
             <exception cref="T:System.ArgumentException">If args length doesn't match variables count in formula</exception>
-            <exception cref="T:System.ArgumentNullException">If formulaName is null or arg is null</exception>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException">If formulaName is not exists in formulas list</exception>
+        </member>
+        <member name="T:AreaCalculator.FormulaFieldAttribute">
+            <summary>
+            Indicates a field with a variable in an implementing ICalculateArea class
+            </summary>
+        </member>
+        <member name="T:AreaCalculator.ICalculateArea">
+            <summary>
+            Area calculator interface
+            </summary>
+        </member>
+        <member name="M:AreaCalculator.ICalculateArea.CalculateArea(System.Double[])">
+            <summary>
+            Area calculator method 
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AreaCalculator.QuadAreaCalculator">
+            <summary>
+            Implements ICalculate interface to calculate a quad area.
+            </summary>
+        </member>
+        <member name="M:AreaCalculator.QuadAreaCalculator.CalculateArea(System.Double[])">
+            <summary>
+            ICalculate implementation
+            </summary>
+            <param name="args">
+            double[2] as input
+            </param>
+            <returns>
+            double[1]{quadArea}
+            </returns>
         </member>
     </members>
 </doc>

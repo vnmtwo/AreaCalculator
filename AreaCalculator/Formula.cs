@@ -22,7 +22,9 @@ namespace AreaCalculator
 
             Assembly assembly = null;
             CSharpCodeProvider cs_code_provider = new CSharpCodeProvider();
+#pragma warning disable CS0618 // Тип или член устарел
             ICodeCompiler cs_code_compiler = cs_code_provider.CreateCompiler();
+#pragma warning restore CS0618 // Тип или член устарел
             CompilerParameters compiler_parameters = new CompilerParameters();
 
             compiler_parameters.ReferencedAssemblies.Add("System.dll");
@@ -79,13 +81,36 @@ namespace AreaCalculator
                 }
             }
         }
+        
+        public Formula(ICalculateArea calculator)
+        {
+            FormulaStr = null;
+            Calculator = calculator;
+            VariablesNames = new List<string>(); 
+
+            var fields_array = calculator.GetType().GetFields();
+            foreach(var f in fields_array)
+            {
+                if (f.GetCustomAttribute(typeof(FormulaFieldAttribute), false) != null)
+                {
+                    VariablesNames.Add(f.Name);
+                }
+            }
+
+            VariablesNames.Sort();
+            
+            if (VariablesNames.Count == 0)
+                throw new ClassNoContainsFormulaFieldsException();
+        }
+
         internal double[] Calculate(double[] args)
         {
-            if (args == null)
-                throw new ArgumentNullException("args is null");
+            if (args is null)
+                throw new ArgumentNullException("args");
             if (VariablesNames.Count != args.Length)
                 throw new ArgumentException(
                     "Input arguments count does not match the number of variables in the formula");
+            
             return Calculator.CalculateArea(args); 
         }
         private List<string> GetVariables(string formula)

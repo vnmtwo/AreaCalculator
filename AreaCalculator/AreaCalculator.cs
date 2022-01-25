@@ -26,10 +26,10 @@ namespace AreaCalculator
         /// All math functions names, available for use.
         /// Also available: 
         /// +, -, *, /
-        /// &&, ||, !
-        /// >, <, >=, <=
+        /// amp;amp; ||, !
+        /// &gt;, &amp;&amp;, &lt;, &gt;=, &lt;=
         /// ==, !=
-        /// <condition>?<iftrue>:<iffalse>
+        /// &lt;conditiongt;?&lt;iftrue&gt;:&lt;iffalse&gt;
         /// </summary>
         public List<string> MathFuncs
         {
@@ -76,13 +76,14 @@ namespace AreaCalculator
                 (([a]*[a]==[b]*[b]+[c]*[c])||
                 ([b]*[b]==[a]*[a]+[c]*[c])||
                 ([c]*[c]==[a]*[a]+[b]*[b]))?1:0");
+            AddFormula("QuadByAB", new QuadAreaCalculator());
         }
 
         /// <summary>
         /// Add and compile new formula. formulaName must be unique.
         /// </summary>
         /// <param name="formulaName">
-        /// Unique value to store formula.
+        /// Unique string to store formula.
         /// </param>
         /// <param name="formula">
         /// Formula for calculation.
@@ -99,8 +100,10 @@ namespace AreaCalculator
         /// <exception cref="FormulaWithoutVariablesException">If variables not found in formula.</exception>
         public void AddFormula(string formulaName, string formula)
         {
+            if (formulaName == null)
+                throw new ArgumentNullException("formulaName");
             if (formula == null)
-                throw new ArgumentNullException("formula is null");
+                throw new ArgumentNullException("formula");
 
             foreach (var kp in _constants)
             {
@@ -112,6 +115,32 @@ namespace AreaCalculator
             }
 
             _formulas.Add(formulaName, new Formula(formula));
+        }
+
+        /// <summary>
+        /// Adds new an implementing ICalculateArea class interface.
+        /// </summary>
+        /// <param name="formulaName">
+        /// Unique string to store formula.
+        /// </param>
+        /// <param name="calculator">
+        /// An implementing ICalculateArea class interface.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// If formula name is null
+        /// If calculator is null
+        /// </exception>
+        /// <exception cref="ClassNoContainsFormulaFieldsException">
+        /// If calculator doesnt contain public fields with FormulaFieldAttribute
+        /// </exception>
+        public void AddFormula(string formulaName, ICalculateArea calculator)
+        {
+            if (formulaName == null)
+                throw new ArgumentNullException("formulaName");
+            if (calculator == null)
+                throw new ArgumentNullException("calculator");
+
+            _formulas.Add(formulaName, new Formula(calculator));
         }
 
         /// <summary>
@@ -147,12 +176,15 @@ namespace AreaCalculator
         /// <returns>
         /// Array of results corresponding to the formula.
         /// </returns>
-        /// <exception cref="ArgumentException">If args length doesn't match variables count in formula</exception>
         /// <exception cref="ArgumentNullException">If formulaName is null or args is null</exception>
+        /// <exception cref="ArgumentException">If args length doesn't match variables count in formula</exception>
         /// <exception cref="KeyNotFoundException">If formulaName is not exists in formulas list</exception>
         public double[] Calculate(string formulaName, double[] args)
         {
-           return _formulas[formulaName].Calculate(args);
+            if (formulaName is null) throw new ArgumentNullException("formulaName");
+            if (args is null) throw new ArgumentNullException("args");
+
+            return _formulas[formulaName].Calculate(args);
         }
 
         private List<string> GetFormulasNames()
