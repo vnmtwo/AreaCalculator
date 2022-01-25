@@ -51,7 +51,7 @@ You may add custom calculator by class that implements the ICalculateArea interf
 
 1. Create class that implements ICalculateArea interface.
 2. Add variables as fields with **`FormulaFieldAttribute`**. Best pratice is use one capital letter for variable.  
-3. Assign elemens of args array to your fields in `CalculateArea` method.  
+3. Assign elemens of args array to your fields in `CalculateArea` method. **Note** values in the args array correspond to the fields sorted alphabetically.
 4. Write your calculator code in `CalculateArea` method. 
 5. Return double[] with your calculation results.
 6. Use `AddFormula(string formulaName, ICalculateArea calculator)` to add instance of your class as formula.
