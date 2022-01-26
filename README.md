@@ -1,3 +1,12 @@
+## Interviewer task
+
+Write a C# library for delivery to external clients that can calculate the area of a circle from its radius and a triangle from three sides. In addition to performance, we evaluate:
+
+Unit-tests
+Easy to add other shapes
+Calculate the area of a figure without knowing the type of figure in compile-time
+Checking if a triangle is a right triangle
+
 ## How to start
 
 1. Create **`AreaCalculator`** class instance
