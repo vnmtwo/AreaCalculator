@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AreaCalculator
 {
@@ -57,7 +57,7 @@ namespace AreaCalculator
             _constants = new Dictionary<string, string>();
             _mathFuncs = new Dictionary<string, string>();
             _formulas = new Dictionary<string, Formula>();
-            
+
             _constants.Add("{PI}", "Math.PI");
 
             _mathFuncs.Add("SQRT", "Math.Sqrt");

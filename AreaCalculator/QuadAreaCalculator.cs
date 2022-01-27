@@ -6,7 +6,7 @@
     public class QuadAreaCalculator : ICalculateArea
     {
 #pragma warning disable CS1591 // Отсутствует комментарий XML для открытого видимого типа или члена
-        
+
         [FormulaField]
         public double a;
 

@@ -3,7 +3,6 @@ using AreaCalculatorTests.TestCalculators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AreaCalculatorTests
 {
@@ -17,7 +16,7 @@ namespace AreaCalculatorTests
 
             CollectionAssert.AreEqual(ac.Constants, new List<string>() { "{PI}" });
             CollectionAssert.AreEqual(ac.MathFuncs, new List<string>() { "SQRT", "POW", "SIN", "COS" });
-            CollectionAssert.AreEqual(ac.FormulaNames, new List<string>() { "CircleByR", "TriangleBySides", "QuadByAB"});
+            CollectionAssert.AreEqual(ac.FormulaNames, new List<string>() { "CircleByR", "TriangleBySides", "QuadByAB" });
         }
 
         [TestMethod]
@@ -220,7 +219,7 @@ namespace AreaCalculatorTests
             ac.AddFormula(name, "[A]+[B]");
 
             var vc = ac.GetFormulaVariables(name).Count;
-            var d = GenerateArgs(vc+1);
+            var d = GenerateArgs(vc + 1);
 
             Assert.ThrowsException<ArgumentException>(
                 () => ac.Calculate(name, d));
@@ -237,7 +236,7 @@ namespace AreaCalculatorTests
             var ac = new AreaCalculator.AreaCalculator();
 
             var name = GenerateUniqueString(ac.FormulaNames);
-            
+
             Assert.ThrowsException<KeyNotFoundException>(
                 () => ac.Calculate(name, new double[1]));
         }
@@ -279,7 +278,7 @@ namespace AreaCalculatorTests
             double[] a = new double[count];
             for (int i = 0; i < count; i++)
             {
-                a[i] = i+1;
+                a[i] = i + 1;
             }
             return a;
         }

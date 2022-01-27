@@ -2,7 +2,7 @@
 
 namespace AreaCalculatorTests.TestCalculators
 {
-    internal class TestAreaCalculator_CheckOrder: ICalculateArea
+    internal class TestAreaCalculator_CheckOrder : ICalculateArea
     {
         [FormulaField]
         public double c;
@@ -17,7 +17,7 @@ namespace AreaCalculatorTests.TestCalculators
             b = args[1];
             c = args[2];
 
-            return new double[] { c,a,b };
+            return new double[] { c, a, b };
         }
     }
 }

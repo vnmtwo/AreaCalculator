@@ -54,19 +54,19 @@ namespace AreaCalculator
                         }
                     }
                     ";
-            
+
             StringBuilder sb = new StringBuilder();
             int index = 0;
-            foreach(var variable in VariablesNames)
+            foreach (var variable in VariablesNames)
             {
-                sb.Append("double "+ CleanBrackets(variable) + " = args["+index++.ToString()+"];");
+                sb.Append("double " + CleanBrackets(variable) + " = args[" + index++.ToString() + "];");
             }
 
             class_str = class_str.Replace("%variables%", sb.ToString());
             class_str = class_str.Replace("%formula%", formula.Replace("[", "").Replace("]", ""));
 
             CompilerResults compiler_results = cs_code_compiler.CompileAssemblyFromSource(compiler_parameters, class_str);
-            if (compiler_results.Errors.Count > 0) 
+            if (compiler_results.Errors.Count > 0)
                 throw new FormulaCompilationException(compiler_results.Errors[0].ToString());
 
             assembly = compiler_results.CompiledAssembly;
@@ -81,15 +81,15 @@ namespace AreaCalculator
                 }
             }
         }
-        
+
         public Formula(ICalculateArea calculator)
         {
             FormulaStr = null;
             Calculator = calculator;
-            VariablesNames = new List<string>(); 
+            VariablesNames = new List<string>();
 
             var fields_array = calculator.GetType().GetFields();
-            foreach(var f in fields_array)
+            foreach (var f in fields_array)
             {
                 if (f.GetCustomAttribute(typeof(FormulaFieldAttribute), false) != null)
                 {
@@ -98,7 +98,7 @@ namespace AreaCalculator
             }
 
             VariablesNames.Sort();
-            
+
             if (VariablesNames.Count == 0)
                 throw new ClassNoContainsFormulaFieldsException();
         }
@@ -110,15 +110,15 @@ namespace AreaCalculator
             if (VariablesNames.Count != args.Length)
                 throw new ArgumentException(
                     "Input arguments count does not match the number of variables in the formula");
-            
-            return Calculator.CalculateArea(args); 
+
+            return Calculator.CalculateArea(args);
         }
         private List<string> GetVariables(string formula)
         {
             Regex regex = new Regex(@"[\[][\S][\]]");
             MatchCollection matches = regex.Matches(formula);
             if (matches.Count == 0) throw new FormulaWithoutVariablesException();
-            
+
             List<string> variables = new List<string>();
             foreach (Match match in matches)
             {
